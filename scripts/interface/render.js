@@ -53,7 +53,25 @@ Document.prototype.render = function() {
    return this;
 }
 
-//Command
+//Interface
+
+Cursor.prototype.render = function(settings){
+
+   const removeDefaultCursor = () => noCursor();
+
+   const renderCursor = (settings) => {
+      stroke(settings.strokeColor);
+      strokeWeight(settings.strokeWeight);
+      noFill();
+      ellipse(this.screenPosition.x, this.screenPosition.y,10,10); //TODO make this screen position
+   }
+   
+   removeDefaultCursor();
+   renderCursor(settings);
+   return this;
+}
+
+//Commandbar
 
 CommandBar.prototype.render = function(position, activeCommand, settings) {
 
@@ -98,24 +116,6 @@ CommandBar.prototype.render = function(position, activeCommand, settings) {
    const dimensions = getDimensionsFromMessage(message);
    renderBoundary(position, dimensions, offset, border, settings);
    renderMessage(message, position, offset, border, settings);
-   return this;
-}
-
-//Interface
-
-Cursor.prototype.render = function(settings){
-
-   const removeDefaultCursor = () => noCursor();
-
-   const renderCursor = (settings) => {
-      stroke(settings.strokeColor);
-      strokeWeight(settings.strokeWeight);
-      noFill();
-      ellipse(this.screenPosition.x, this.screenPosition.y,10,10); //TODO make this screen position
-   }
-   
-   removeDefaultCursor();
-   renderCursor(settings);
    return this;
 }
 

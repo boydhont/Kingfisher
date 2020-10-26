@@ -1,6 +1,12 @@
+//-----------------------------------------------------------------
+//Extension: Additional
+//Extension template: Defines the structures for Extension Objetcts
+//-----------------------------------------------------------------
+
 // Defines the structure of custom element objects
 
 // Class custom element extends element
+/*
 class debugElement extends Element{
 
     //Constuctor
@@ -36,3 +42,4 @@ Commands.debugelement = function(document){
     () => null
     );
 }
+*/

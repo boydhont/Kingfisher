@@ -90,8 +90,6 @@ function keyPressed(event){
     view.addCommandBarMessage(documentManager.getActiveObject(), commandManager, event.key);
 }
 
-//TODO Icon and name Alpaca
-
 //-------------------------------------------------------
 
 //TODO reload extensions command
