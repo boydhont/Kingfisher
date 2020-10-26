@@ -106,6 +106,8 @@ function keyPressed(event){
 
 //-------------------------------------------------------
 
+//TODO add hatch
+
 //TODO selectionbox
 
 //TODO join command
