@@ -3,20 +3,17 @@
 //Vanilla Commands: Adds basic drawing commands
 //---------------------------------------------
 
-function getCommands(document, message)
-{
-    for(let f in Commands) if(f == message) return Commands[f](document);
-    return null;
-}
-
-let Commands = {
-    debug: (document) => new Command(
+Commands.debug = function(document) { 
+    return new Command(
         document, "debug",
         () => true,
         () => console.log("debug: this is a debug message"),
         () => null
-    ),
-    line: (document) => new Command(
+    );
+}
+
+Commands.line = function(document) {
+    return new Command(
         document, "line",
         function(){
             //if(this.input.length == 0) this.log("set start point");
@@ -31,8 +28,11 @@ let Commands = {
             //stroke(255); strokeWeight(2); noFill();
             l.render();
         }
-    ),
-    circle: (document) => new Command(
+    );
+}
+
+Commands.circle = function(document) {
+    return new Command(
         document, "circle",
         function(){
             //if(this.input.length == 0) this.log("set center point");
@@ -54,8 +54,11 @@ let Commands = {
             //stroke(255); strokeWeight(2); noFill();
             l.render();
         }
-    ),
-    polyline: (document) => new Command(
+    );
+}
+
+Commands.polyline = function(document) {
+    return new Command(
         document, "polyline",
         function(){
             //TODO check for first merge and last merge
@@ -86,8 +89,11 @@ let Commands = {
             const l = new PolyLine(tempInput);
             l.render();
         }
-    ),
-    rectangle: (document) => new Command(
+    );
+}
+
+Commands.rectangle = function(document) {
+    return new Command(
         document, "rectangle",
         function(){
             if(this.input.length < 2) return false;
@@ -104,8 +110,11 @@ let Commands = {
             //stroke(255); strokeWeight(2); noFill();
             l.render();
         } //TODO make it visible when just on input has been drawn
-    ),
-    movereferencepoint: (document) => new Command(
+    );
+}
+
+Commands.movereferencepoint = function(document) {
+    return new Command(
         document, "movereferencepoint",
         function() {
             if(this.input.length == 0) return false;
@@ -123,8 +132,11 @@ let Commands = {
         },
         function() {
         } //TODO find a way to display it
-    ),
-    delete: (document) => new Command(
+    );
+}
+
+Commands.delete = function(document) {
+    return new Command(
         document, "delete",
         () => true,
         function() {
@@ -136,24 +148,32 @@ let Commands = {
             this.document.elements = cleanedElements;
         },
         () => null
-    )
-    ,
-    save: (document) => new Command(
+    );
+}
+
+Commands.save = function(document) {
+    return new Command(
         document, "save",
         () => true,
         () => File.save(document),
         () => null
-    ),
-    open: (document) => new Command(
+    );
+}
+
+Commands.open = function(document) {
+    return new Command(
         document, "open",
         () => true,
         () => File.open((content) => document.elements = File.getDocumentFromString(content).elements), //replace current document with document
         () => null
-    ),
-    new: (document) => new Command(
+    );
+}
+
+Commands.new = function(document) {
+    return new Command(
         document, "new",
         () => true,
         () => document.clear(),
         () => null
-    ),    
+    );    
 }

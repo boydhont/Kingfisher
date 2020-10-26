@@ -61,3 +61,13 @@ class Command
         return this;
     };
 }
+
+//Commands retriever
+function getCommands(document, message)
+{
+    for(let f in Commands) if(f == message) return Commands[f](document);
+    return null;
+}
+
+//Commands array
+let Commands = {};
