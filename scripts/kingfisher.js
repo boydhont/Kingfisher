@@ -92,6 +92,23 @@ function keyPressed(event){
 
 //-------------------------------------------------------
 
+//TODO js export
+    //Rewrite class methods
+    //Remove ; behind }
+    //Paste render.js (Prototype) behind all others
+    //Comment out controls
+    //Optional: Comment out cursor Renderer
+    //Remove comments
+
+//TODO video export
+
+//-------------------------------------------------------
+
+//TODO A* path extensions
+//TODO image/ animated GIF object
+
+//-------------------------------------------------------
+
 //TODO reload extensions command
 
 //TODO undo
@@ -99,10 +116,6 @@ function keyPressed(event){
 //TODO tolerance zoom fix for snapping
 
 //TODO snap fix during command execution
-
-//-------------------------------------------------------
-
-//TODO splash screen    
 
 //-------------------------------------------------------
 
