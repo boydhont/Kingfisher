@@ -142,9 +142,7 @@ Commands.delete = function(document) {
         function() {
             let elements = this.document.getElementsOnPoint(new Vector(mouseX, mouseY), 5); //TODO make this cursor input
             if(elements == null) return;
-            if(elements[0] == null) return;
-            if(elements[0].geometry == null) return;
-            elements[0].geometry = null;
+            elements[0].geometry = null; //TODO correct
             let cleanedElements = [];
             for(let e of this.document.elements) if(e.geometry != null) cleanedElements.push(e); //TODO remove object cleaner
             this.document.elements = cleanedElements;
