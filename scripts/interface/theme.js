@@ -9,29 +9,29 @@ class Theme {
 
     //Non-chainable methods
 
-    getThemeName = () => this.themeName;
+    getThemeName(){return this.themeName};
 
-    getVectorSettings = () => { 
+    getVectorSettings(){ 
         return {
             fillColor: this.vectorFillColor
         };
     };
 
-    getCommandBarSettings = () => { 
+    getCommandBarSettings(){ 
         return {
             fillColor: this.commandBarFillColor,
             textColor: this.commandBarTextColor
         };
     };
 
-    getCursorSettings = () => {
+    getCursorSettings(){
         return {
             strokeColor: this.cursorStrokeColor,
             strokeWeight: this.cursorStrokeWeight
         };
     };
 
-    getViewSettings = () => {
+    getViewSettings(){
         return {
             backgroundColor: this.viewBackgroundColor,
             regularElementsStrokeColor: this.viewRegularElementsStrokeColor,
@@ -45,7 +45,7 @@ class Theme {
 
     //Chainable methods
 
-    setDefaultSettings = () => {
+    setDefaultSettings(){
         this.themeName = "Default Theme";
         this.vectorFillColor = "#ffffff";
         this.commandBarFillColor = "#282828";
@@ -62,7 +62,7 @@ class Theme {
         return this;
     }
 
-    setCurrentSettings = () => {
+    setCurrentSettings(){
         const content = JSON.parse(this.currentSettings)[0];
         this.themeName = content.themeName;
         this.vectorFillColor = content.vectorFillColor;

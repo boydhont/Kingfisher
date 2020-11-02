@@ -11,24 +11,24 @@ class Cursor {
 
     //Non-chainable methods
 
-    getScreenPosition = () => this.screenPosition;
-    getDocumentPosition = () => this.documentPosition;
+    getScreenPosition(){return this.screenPosition;}
+    getDocumentPosition(){return this.documentPosition;}
     
-    getDocumentPositionFromScreenPosition = (viewDimensions, viewScale) => {
+    getDocumentPositionFromScreenPosition(viewDimensions, viewScale){
         const topLeftViewCorner = new Vector(viewDimensions[0][0], viewDimensions[0][1]);
         const relativeScaleMousePosition = new Vector(this.screenPosition.x*viewScale, this.screenPosition.y*viewScale);
         const newDocumentPosition = new Vector(topLeftViewCorner.x + relativeScaleMousePosition.x, topLeftViewCorner.y + relativeScaleMousePosition.y);
         return newDocumentPosition;
     }
 
-    getScreenPositionFromDocumentPosition = (viewDimensions, viewScale) => {
+    getScreenPositionFromDocumentPosition(viewDimensions, viewScale){
         const topLeftViewCorner = new Vector(viewDimensions[0][0], viewDimensions[0][1]);
         const relativeMousePosition = new Vector(this.documentPosition.x - topLeftViewCorner.x, this.documentPosition.y - topLeftViewCorner.y);
         const newScreenPosition = new Vector(relativeMousePosition.x/viewScale, relativeMousePosition.y/viewScale);
         return newScreenPosition;
     }
 
-    getSnappedVector(document, activeCommand, vector) {
+    getSnappedVector(document, activeCommand, vector){
         const getReferencePointSnap = () => document.getReferencePointOnPoint(vector, 5);
 
         const getCommandInputSnap = (activeCommand, viewScale) => 
@@ -96,7 +96,7 @@ class Cursor {
 
     //Chainable methods
 
-    update = (document, activeCommand, vector, viewDimensions, viewScale) => { //TODO create object
+    update(document, activeCommand, vector, viewDimensions, viewScale){ //TODO create object
         this.screenPosition = vector; //TODO Set screen position from current vector
         this.documentPosition = this.getDocumentPositionFromScreenPosition(viewDimensions, viewScale); //TODO Convert the vector to documentposition
         this.documentPosition = this.getSnappedVector(document, activeCommand, this.documentPosition, viewScale); //TODO change when camera zoom comes in

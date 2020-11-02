@@ -15,26 +15,26 @@ class Manager {
 
     //Non-chainable methods
 
-    getActiveObject = () => {
+    getActiveObject(){
         if(this.objects.length <= 0) return null;
         if(this.activeObjectIndex >= this.objects.length) this.activeObjectIndex %= this.object.length;
         return this.objects[this.activeObjectIndex];
     };
 
-    getLastObject = () => {
+    getLastObject(){
         if(this.objects.length <= 0) return null;
         return this.objects[this.objects.length-1];
     }
 
     //Chainable methods
 
-    addObject = (object) => {
+    addObject(object){
         this.objects.push(object);
         if(this.objects.length > this.bufferSize) this.objects.shift();
         return this;
     }
 
-    clear = () => {
+    clear(){
         this.objects = [];
         return this;
     };

@@ -24,19 +24,18 @@ class View {
 
     //Non-chainable methods
 
-    getViewDimensionsScale = () => (this.viewDimensions[1][0]-this.viewDimensions[0][0])/this.canvasDimensions[0];
+    getViewDimensionsScale(){return (this.viewDimensions[1][0]-this.viewDimensions[0][0])/this.canvasDimensions[0];}
 
     //Chainable methods
 
-    changeViewScale = (delta, factor) => {
+    changeViewScale(delta, factor){
         if(this.viewScale <= 0.1 && (delta*factor) <= 0) return this; //TODO set limit
         if(this.viewScale >= 10 && (delta*factor) >= 0) return this; //TODO set limit
         this.viewScale = Math.abs(this.viewScale+(delta*factor));
         return this;
     }
     
-    setViewDimensions = () => {
-        
+    setViewDimensions(){
         const getMultipliedVectorByScaleOrigin = (v,o,s) => {
             const getTranslatedVector = (a,b) => [a[0]+b[0], a[1]+b[1]];
             const getMultipliedVector = (a,f) => [a[0]*f, a[1]*f];
@@ -61,14 +60,14 @@ class View {
         return this;
     }
 
-    update = (document, activeCommand, vector, canvasDimensions) => {
+    update(document, activeCommand, vector, canvasDimensions){
         this.canvasDimensions = canvasDimensions;
         this.setViewDimensions();
         this.cursor.update(document, activeCommand, vector, this.viewDimensions, this.getViewDimensionsScale());
         return this;
     }
 
-    addCommandBarMessage = (document, commandManager, message) => {
+    addCommandBarMessage(document, commandManager, message){
         this.commandBar.addMessage(document, commandManager, message);
         return this;
     }

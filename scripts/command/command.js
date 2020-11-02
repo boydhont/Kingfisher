@@ -28,11 +28,11 @@ class Command
 
     //Non-chainable methods
 
-    duplicate = () => new Command(this.document, this.name, this.condition, this.execute, this.render);
+    duplicate(){return new Command(this.document, this.name, this.condition, this.execute, this.render);}
 
     //Chainable methods
 
-    run = (currentMouseInput) => {
+    run(currentMouseInput){
         if(this.commandStatus != CommandStatus.OPEN) return this;
         this.currentMouseInput = currentMouseInput;
         //this.render(); //TODO insert view here
@@ -43,20 +43,20 @@ class Command
         return this;
     };
 
-    addInput = (input) => {
+    addInput(input){
         if(this.commandStatus != CommandStatus.OPEN) return;
         this.input.push(input);
         return this;
     }
 
-    cancel = () => {
+    cancel(){
         if(this.commandStatus != CommandStatus.OPEN) return this; 
         this.commandStatus = CommandStatus.CANCELED;
         console.log(this.name + this.commandStatus);
         return this;
     }
 
-    log = (message) => {
+    log(message){
         this.message = message
         return this;
     };

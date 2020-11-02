@@ -10,7 +10,7 @@ class CommandBar {
 
     //Non-chainable methods
     
-    isMessageRelativeInputCommand = (commandManager, input, message) => {
+    isMessageRelativeInputCommand(commandManager, input, message){
         const isActiveCommandFitForRelativeInput = (commandManager) => {
             const activeCommand = commandManager.getLastObject();
             if(activeCommand == null) return false;
@@ -35,7 +35,7 @@ class CommandBar {
         return true;
     }
 
-    getExtendedMessage = (message, input, isMessageRelativeInputCommand) => {
+    getExtendedMessage(message, input, isMessageRelativeInputCommand){
 
         const getExtendedTextMessage = (message, input) => {
             if(input.toLowerCase() == input.toUpperCase()) return message;
@@ -56,7 +56,7 @@ class CommandBar {
 
     //Chainable methods
 
-    addMessage = (document, commandManager, input) => {
+    addMessage(document, commandManager, input){
         //TODO add spacebar trigger
         if(input === undefined || input == null) return;
         if(input == " ") this.executeLastCommand(commandManager);
@@ -68,7 +68,7 @@ class CommandBar {
         return this;
     };
 
-    executeMessage = (document, commandManager) => {
+    executeMessage(document, commandManager){
 
         const isMessageTextString = (message) => {if(message.toUpperCase() != message.toLowerCase()) return true; return false}
 
@@ -169,7 +169,7 @@ class CommandBar {
         return this;
     }
 
-    executeLastCommand = (commandManager) => {
+    executeLastCommand(commandManager){
         const previousCommand = commandManager.getLastObject();
         this.message = "";
         for(const previousCommand of commandManager.objects) previousCommand.cancel();
@@ -178,7 +178,7 @@ class CommandBar {
         return this;
     }
 
-    cancelLastCommand = (commandManager) => {
+    cancelLastCommand(commandManager){
         const activeCommand = commandManager.getLastObject();
         if(activeCommand == null) return this;
         if(activeCommand.commandStatus != CommandStatus.OPEN) return this;

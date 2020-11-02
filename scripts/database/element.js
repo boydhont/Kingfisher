@@ -11,13 +11,12 @@ class Element {
 
     //Non-chainable methods
 
-    collision = (point,tolerance) => {
+    collision(point,tolerance){
         for(const GEOMETRY of this.geometry) if(GEOMETRY.collision(point,tolerance)) return true;
         return false;
     };
 
-    getReferencePointOnPoint(point, tolerance)
-    {
+    getReferencePointOnPoint(point, tolerance){
         for(const GEOMETRY of this.geometry)
         {
             const referencePoint = GEOMETRY.getReferencePointOnPoint(point, tolerance);
@@ -29,7 +28,7 @@ class Element {
 
     //Chainable methods
 
-    rebuild = (cursorDocumentPosition) => {
+    rebuild(cursorDocumentPosition){
         for(const GEOMETRY of this.geometry) GEOMETRY.rebuild(cursorDocumentPosition);
         return this;
     }

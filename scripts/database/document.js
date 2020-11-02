@@ -12,13 +12,13 @@ class Document {
 
     //Non-chainable Methods
 
-    getElementsOnPoint = (point, tolerance) => {
+    getElementsOnPoint(point, tolerance){
         let selection = [];
         for(let e of this.elements) if(e.collision(point,tolerance)) selection.push(e);
         return selection;
     }
 
-    getReferencePointOnPoint = (point, tolerance) => {
+    getReferencePointOnPoint(point, tolerance){
         for(let e of this.elements)
         {
             const REFERENCE_POINT = e.getReferencePointOnPoint(point, tolerance);
@@ -30,17 +30,17 @@ class Document {
 
     //Chainable Methods
 
-    addElement = (element) => {
+    addElement(element){
         this.elements.push(element);
         return this;
     }
 
-    rebuild = (cursorDocumentPosition) => {
+    rebuild(cursorDocumentPosition){
         for(let e of this.elements) e.rebuild(cursorDocumentPosition);
         return this;
     };
 
-    clear = () => {
+    clear(){
         this.elements = [];
         return this;
     }

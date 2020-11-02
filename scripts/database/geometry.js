@@ -31,9 +31,9 @@ class Geometry {
 
     //Non-chainable methods
 
-    collision = (point,tolerance) => false;
+    collision(point,tolerance){return false;}
 
-    getReferencePointOnPoint(point, tolerance) {
+    getReferencePointOnPoint(point, tolerance){
         const getTwoPointVector = (a,b) => new Vector(b.x-a.x, b.y-a.y);
         const getDistanceBetweenVectors = (a,b) => Math.pow(Math.pow(getTwoPointVector(a,b).x,2)+Math.pow(getTwoPointVector(a,b).y,2),0.5);
 
@@ -44,7 +44,7 @@ class Geometry {
 
     //Chainable methods
 
-    rebuild = (cursorDocumentPosition) => this;
+    rebuild(cursorDocumentPosition){return this;}
 
 }
 
@@ -66,11 +66,11 @@ class Arc extends Geometry {
 
     //Non-chainable methods
 
-    collision = (point,tolerance) => false; //TODO expand
+    collision(point,tolerance){return false;} //TODO expand
 
     //Chainable methods
 
-    rebuild = (cursorDocumentPosition) => this;
+    rebuild(cursorDocumentPosition){return this;}
 }
 
 class Circle extends Geometry {
@@ -87,14 +87,14 @@ class Circle extends Geometry {
 
     //Non-chainable methods
 
-    collision = (point,tolerance) => {
+    collision(point,tolerance){
         const distance = this.getDistanceBetweenVectors(this.centerPoint, point);
         const error = Math.abs(this.radius-distance);
         if(error <= tolerance || distance <= tolerance) return true;
         return false;
     };
     
-    getDistanceBetweenVectors = (a,b) => {
+    getDistanceBetweenVectors(a,b){
         const twoPointVector = new Vector(b.x-a.x, b.y-a.y);
         const distance = Math.pow(Math.pow(twoPointVector.x,2)+Math.pow(twoPointVector.y,2),0.5);
         return distance;
@@ -102,7 +102,7 @@ class Circle extends Geometry {
 
     //Chainable methods
 
-    rebuild = (cursorDocumentPosition) => {
+    rebuild(cursorDocumentPosition){
         this.centerPoint = this.referencePoints[0];
         this.radius = this.getDistanceBetweenVectors(this.referencePoints[0], this.referencePoints[1]);
         return this;
@@ -123,7 +123,7 @@ class Line extends Geometry {
 
     //Non-chainable methods
 
-    collision = (point,tolerance) => {
+    collision(point,tolerance){
         const CALIBRATION = 125;
         const CROSS_PRODUCT = (point.y-this.startPoint.y)*(this.endPoint.x-this.startPoint.x)-(point.x-this.startPoint.x)*(this.endPoint.y-this.startPoint.y);
         if(Math.abs(CROSS_PRODUCT) > tolerance*CALIBRATION) return false;
@@ -136,7 +136,7 @@ class Line extends Geometry {
 
     //Chainable methods
 
-    rebuild = (cursorDocumentPosition) => {
+    rebuild(cursorDocumentPosition){
         this.startPoint = this.referencePoints[0];
         this.endPoint = this.referencePoints[1];
         return this;
@@ -154,7 +154,7 @@ class PolyLine extends Geometry
         if(isClosed === undefined) this.isClosed = false;
     }
 
-    collision = (point,tolerance) => {
+    collision(point,tolerance){
         const isPointOnLineSegment = (a,b) => {
             const l = new Line(a, b);
             if(l.collision(point, tolerance)) return true;
@@ -170,7 +170,7 @@ class PolyLine extends Geometry
 
     //Chainable methods
 
-    rebuild = () => {
+    rebuild(){
         const getVerticesWithoutDuplicates = (vertices) => {
 
             const getDistanceBetweenPoints = (a,b) => {
@@ -211,11 +211,11 @@ class Ray extends Geometry {
 
     //Non-chainable methods
 
-    collision = (point,tolerance) => false; //TODO expand
+    collision(point,tolerance){return false;} //TODO expand
 
     //Chainable methods
 
-    rebuild = (cursorDocumentPosition) => this; //TODO expand
+    rebuild(cursorDocumentPosition){return this;} //TODO expand
 }
 
 //An enum to initiate geometry types from a sting //TODO move up in the file

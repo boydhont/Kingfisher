@@ -14,14 +14,14 @@ class Arrow extends Element{
     }
 
     //Chainable methods
-    rebuild = (cursorDocumentPosition) => {
+    rebuild(cursorDocumentPosition){
         for(const GEOMETRY of this.geometry) GEOMETRY.rebuild(cursorDocumentPosition);
         this.frame++;
         if(this.frame >= this.frameLimit) this.frame = 0; 
         return this;
     }
 
-    render = () => {
+    render(){
 
         const GET_UNIT_DIRECTION_VECTOR = () => {
 
@@ -70,6 +70,8 @@ class Arrow extends Element{
         vertex(BASE_POINT.x, BASE_POINT.y);
         endShape(CLOSE);
         noFill();
+        
+        return this;
     }
 }
 
