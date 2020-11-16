@@ -4,8 +4,8 @@ const loadExtensions = () => {
         const fileref = document.createElement('script');
         fileref.type = "text/javascript";
         fileref.src = source;
-        fileref.onerror = () => document.body.removeChild(fileref);
-        document.body.appendChild(fileref);
+        fileref.onerror = () => document.head.removeChild(fileref);
+        document.head.appendChild(fileref);
     }
 
     for(let i=0;i<99;i++){
