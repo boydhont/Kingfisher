@@ -30,6 +30,7 @@ class Manager {
 
     addObject(object){
         this.objects.push(object);
+        if(this.bufferSize >= 0) return this;
         if(this.objects.length > this.bufferSize) this.objects.shift();
         return this;
     }

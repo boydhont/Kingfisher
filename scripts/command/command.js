@@ -30,6 +30,15 @@ class Command
 
     duplicate(){return new Command(this.document, this.name, this.condition, this.execute, this.render);}
 
+    getCodeString(){
+        //const command = getCommands(documentManager.getActiveObject(), "line").addInput(new Vector(0,0)).addInput(new Vector(50,100));
+        let s = 'const command = getCommands(documentManager.getActiveObject(), "' + this.name + '")';
+        for(const input of this.input) s+= ".addInput(new Vector(" + input.x + "," + input.y +"))"
+        s += ";"
+        const codeString = s;
+        return codeString;
+    }
+
     //Chainable methods
 
     run(currentMouseInput){
@@ -40,6 +49,9 @@ class Command
         this.execute(this.document);
         this.message = "";
         this.commandStatus = CommandStatus.CLOSED;
+        //commandManager.addObject(this); //TODO do this clean
+        console.log(commandManager); //TODO remove this
+        console.log(this.getCodeString());
         return this;
     };
 

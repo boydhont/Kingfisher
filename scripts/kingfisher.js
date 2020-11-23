@@ -11,9 +11,16 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
     documentManager = new Manager([new Document()], 1000);
-    commandManager = new Manager([], 1000);
+    commandManager = new Manager([], 0); //TODO make this endless
     view = new View([width, height]);
+
 }
+
+/*function testAddSomething() //TODO delete this function
+{
+    const command = getCommands(documentManager.getActiveObject(), "line").addInput(new Vector(0,0)).addInput(new Vector(50,100));
+    commandManager.addObject(command);
+}*/
 
 function draw() {
 
@@ -54,6 +61,9 @@ function draw() {
 
     //Run the active command
     runActiveCommand(view, commandManager);
+
+    //TODO delete this
+    //if(frameCount == 10) testAddSomething(); //TODO change this to all extensions have been loaded
 }
 
 function mouseClicked(){

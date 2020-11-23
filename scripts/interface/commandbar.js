@@ -75,7 +75,11 @@ class CommandBar {
         const executeCommandMessage = (document, commandManager) => {
             const command = getCommands(document, this.message);
             this.message = "";
-            for(let previousCommand of commandManager.objects) previousCommand.cancel();
+            for(let previousCommand of commandManager.objects) 
+            {
+                if(previousCommand == null) continue;
+                previousCommand.cancel();
+            }
             if(command == null) return;
             commandManager.addObject(command);
             console.log(command.name + " started"); //TODO remove print
