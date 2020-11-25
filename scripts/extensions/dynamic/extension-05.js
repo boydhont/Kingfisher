@@ -13,12 +13,10 @@
 //  Add a frame
 //Saves the modified javascript object to the desktop
 
-//TODO only adds the last one, fix this
-
 const getSnapshotContent = function(content){
+    const newLine = () => "\n";
 
     const getCommandHistoryAsFunction = function(commandManager){
-        const newLine = () => "\n";
 
         let s = "const commandHistory = function(){" + newLine();
         //if(commandManager.length <= 0) return commandHistoryFunctionString;
@@ -28,8 +26,7 @@ const getSnapshotContent = function(content){
             const command = commandManager.objects[i];
             if(command.name === "snapshot") continue;
             const commandId = "commandCode_" + i; 
-            let cs = command.getCodeString(commandId) + newLine() + "commandManager.addObject(" + commandId + ");" + newLine(); //TODO make sure that it does not only eecute the last one
-            //TODO check if it contains a snapshot
+            let cs = command.getCodeString(commandId) + newLine() + commandId + ".execute();" + newLine();
             s += cs;
         }
         s += "}" + newLine() + newLine();
@@ -40,6 +37,8 @@ const getSnapshotContent = function(content){
     let snapshotContent = String(content);
     snapshotContent = snapshotContent.replace("loadExtensions();", "//loadExtensions();");
     snapshotContent = snapshotContent.replace("function draw()", getCommandHistoryAsFunction(commandManager) + "function draw()");
+    snapshotContent = snapshotContent.replace("function draw() {", "function draw() {" + newLine() + "if(frameCount == 10) commandHistory();");
+    //TODO add rectangle
     return snapshotContent;
 }
 
