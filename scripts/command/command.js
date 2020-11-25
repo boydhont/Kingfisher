@@ -30,9 +30,9 @@ class Command
 
     duplicate(){return new Command(this.document, this.name, this.condition, this.execute, this.render);}
 
-    getCodeString(){
+    getCodeString(commandId){
         //const command = getCommands(documentManager.getActiveObject(), "line").addInput(new Vector(0,0)).addInput(new Vector(50,100));
-        let s = 'const command = getCommands(documentManager.getActiveObject(), "' + this.name + '")';
+        let s = 'const ' +  commandId + ' = getCommands(documentManager.getActiveObject(), "' + this.name + '")';
         for(const input of this.input) s+= ".addInput(new Vector(" + input.x + "," + input.y +"))"
         s += ";"
         const codeString = s;
@@ -50,8 +50,8 @@ class Command
         this.message = "";
         this.commandStatus = CommandStatus.CLOSED;
         //commandManager.addObject(this); //TODO do this clean
-        console.log(commandManager); //TODO remove this
-        console.log(this.getCodeString());
+        //console.log(commandManager); //TODO remove this
+        //console.log(this.getCodeString());
         return this;
     };
 

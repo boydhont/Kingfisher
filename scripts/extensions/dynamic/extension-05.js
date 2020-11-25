@@ -13,6 +13,41 @@
 //  Add a frame
 //Saves the modified javascript object to the desktop
 
+//TODO only adds the last one, fix this
+
+const getSnapshotContent = function(content){
+
+    const getCommandHistoryAsFunction = function(commandManager){
+        const newLine = () => "\n";
+
+        let s = "const commandHistory = function(){" + newLine();
+        //if(commandManager.length <= 0) return commandHistoryFunctionString;
+        for(let i=0;i<commandManager.objects.length;i++) 
+        {
+            s+= "";
+            const command = commandManager.objects[i];
+            if(command.name === "snapshot") continue;
+            const commandId = "commandCode_" + i; 
+            let cs = command.getCodeString(commandId) + newLine() + "commandManager.addObject(" + commandId + ");" + newLine(); //TODO make sure that it does not only eecute the last one
+            //TODO check if it contains a snapshot
+            s += cs;
+        }
+        s += "}" + newLine() + newLine();
+        const commandHistoryFunctionString = String(s);
+        return commandHistoryFunctionString;
+    }
+
+    let snapshotContent = String(content);
+    snapshotContent = snapshotContent.replace("loadExtensions();", "//loadExtensions();");
+    snapshotContent = snapshotContent.replace("function draw()", getCommandHistoryAsFunction(commandManager) + "function draw()");
+    return snapshotContent;
+}
+
+File.saveSnapshot = function(content){
+    const fileName = File.getRandomFileName(); //TODO change filename to something readable
+    if(fileName == null || fileName == "") return;
+    saveStrings([getSnapshotContent(content)],fileName, "js"); //TODO modify the content here
+}
 
 const GetJavaScriptContent = function(){
     const GetJavaScriptReferences = function(){
@@ -48,15 +83,14 @@ const GetJavaScriptContent = function(){
     const javaScriptReferences = GetJavaScriptReferences();
     if(javaScriptReferences.srcArray.length <= 0) return null;
     if(javaScriptReferences.isHttpSource) console.log("A http fetch request"); //TODO write the fetch request
-    if(javaScriptReferences.isLocalSource) File.open((content) => console.log(content)); //TODO fetch the data from 
-    return null;
+    if(javaScriptReferences.isLocalSource) return File.open((content) => File.saveSnapshot(content)); //TODO fetch the data from 
 }
 
 Commands.snapshot = function(document){
     return new Command(
     document, "snapshot",
     () => true,
-    () => console.log(GetJavaScriptContent()),
+    () => GetJavaScriptContent(),
     () => null
     );
 }
