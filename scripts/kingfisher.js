@@ -18,7 +18,7 @@ function setup() {
 
 /*function testAddSomething() //TODO delete this function
 {
-    const command = getCommands(documentManager.getActiveObject(), "line").addInput(new Vector(0,0)).addInput(new Vector(50,100));
+    const command = getCommands(documentManager.getActiveObject(), "rectangle").addInput(new Vector(0,0)).addInput(new Vector(3000,100));
     commandManager.addObject(command);
 }*/
 

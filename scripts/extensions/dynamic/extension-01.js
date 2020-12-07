@@ -104,10 +104,11 @@ Commands.rectangle = function(document) {
             this.document.addElement(Elements.polyline(getCornerVectors(this.input[0], this.input[1]), true));
         },
         function(){
-            const getCornerVectors = (a,b) => [new Vector(a.x,a.y), new Vector(a.x, b.y), new Vector(b.x, b.y), new Vector(b.x, a.y)];
+            const getCornerVectors = (a,b) => [new Vector(a.x,a.y), new Vector(a.x, b.y), new Vector(b.x, b.y), new Vector(b.x, a.y)]; //TODO error here
             if(this.input.length == 0) return;
+            if(this.input[0] == null) return;
+            if(this.currentMouseInput == null) return;
             const l = new PolyLine(getCornerVectors(this.input[0], this.currentMouseInput), true);
-            //stroke(255); strokeWeight(2); noFill();
             l.render();
         } //TODO make it visible when just on input has been drawn
     );
