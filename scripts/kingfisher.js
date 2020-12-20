@@ -102,6 +102,11 @@ function keyPressed(event){
 
 //-------------------------------------------------------
 
+//TODO js export command
+    //Make sure it exports in a certain rectangle
+
+//TODO human plugin
+
 //TODO js export
     //Rewrite class methods
     //Remove ; behind }

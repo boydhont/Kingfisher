@@ -30,10 +30,12 @@ class Command
 
     duplicate(){return new Command(this.document, this.name, this.condition, this.execute, this.render);}
 
-    getCodeString(commandId){
+    getCodeString(commandId, origin){
+        const getCorrectedInput = (input, origin) => new Vector(input.x - origin.x, input.y - origin.y);
+        if(origin === undefined) origin = new Vector(0,0);
         //const command = getCommands(documentManager.getActiveObject(), "line").addInput(new Vector(0,0)).addInput(new Vector(50,100));
         let s = 'const ' +  commandId + ' = getCommands(documentManager.getActiveObject(), "' + this.name + '")';
-        for(const input of this.input) s+= ".addInput(new Vector(" + input.x + "," + input.y +"))"
+        for(const input of this.input) s+= ".addInput(new Vector(" + getCorrectedInput(input, origin).x + "," + getCorrectedInput(input,origin).y +"))"
         s += ";"
         const codeString = s;
         return codeString;
