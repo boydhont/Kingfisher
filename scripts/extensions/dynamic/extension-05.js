@@ -38,7 +38,7 @@ const getSnapshotContent = function(content, origin, width, height){
     snapshotContent = snapshotContent.replace("loadExtensions();", "//loadExtensions();");
     snapshotContent = snapshotContent.replace("function draw()", getCommandHistoryAsFunction(commandManager, origin) + "function draw()");
     snapshotContent = snapshotContent.replace("function draw() {", "function draw() {" + newLine() + "if(frameCount == 10) commandHistory();");
-    
+    snapshotContent = snapshotContent.replace("createCanvas(windowWidth, windowHeight)", "createCanvas(" + width + ", " + height + ")");
     //TODO do something width the width an height
 
     return snapshotContent;
