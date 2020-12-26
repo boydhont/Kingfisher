@@ -1,3 +1,8 @@
+//Manually adapted:
+//Mouse control functions disabled
+//Cursor render disabled
+//View render active hover disabled
+
 let documentManager, commandManager, view;
 
 function windowResized(){
@@ -66,7 +71,7 @@ function draw() {
     //if(frameCount == 10) testAddSomething(); //TODO change this to all extensions have been loaded
 }
 
-function mouseClicked(){
+/*function mouseClicked(){
 
     const triggerReferencePointDrag = (view, activeCommand) => { //TODO rename
         if(activeCommand == null) return null;
@@ -98,7 +103,7 @@ function mouseWheel(event){
 
 function keyPressed(event){
     view.addCommandBarMessage(documentManager.getActiveObject(), commandManager, event.key);
-}
+}*/
 
 //-------------------------------------------------------
 //PAGE TRANSIT
@@ -1685,8 +1690,8 @@ Vector.prototype.render = function(viewScale, settings) {
        ellipse(this.screenPosition.x, this.screenPosition.y,10,10); //TODO make this screen position
     }
     
-    removeDefaultCursor();
-    renderCursor(settings);
+    //removeDefaultCursor();
+    //renderCursor(settings);
     return this;
  }
  
@@ -1786,7 +1791,7 @@ Vector.prototype.render = function(viewScale, settings) {
     translate(-viewScaleOrigin[0], -viewScaleOrigin[1]);
     renderEnvironment(this.theme.getViewSettings());
     renderRegularElements(activeDocument, viewScale, this.theme.getViewSettings());
-    renderActiveHover(this, activeDocument, viewScale, this.theme.getViewSettings());
+    //renderActiveHover(this, activeDocument, viewScale, this.theme.getViewSettings());
     renderActiveCommand(activeCommand, viewScale, this.theme.getViewSettings());
     pop();
     renderCursor(this, activeCommand);
