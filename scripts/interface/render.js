@@ -140,7 +140,11 @@ View.prototype.render = function(activeDocument, activeCommand) {
          stroke(settings.hoverElementsStrokeColor);
          strokeWeight(settings.hoverElementsStrokeWeight/viewScale);
          element.render();
-         for(let g of element.geometry) for(let v of g.referencePoints) v.render(viewScale, this.theme.getVectorSettings()); //TODO v.render is not a function
+         for(let g of element.geometry) {
+            if(g == null) continue;
+            if(g.referencePoints == null) continue;
+            for(let v of g.referencePoints) v.render(viewScale, this.theme.getVectorSettings());
+         } //TODO v.render is not a function
       }
    }
 
