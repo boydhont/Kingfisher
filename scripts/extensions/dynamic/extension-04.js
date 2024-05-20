@@ -1,70 +1,71 @@
 //----------------------------------
 //Extension: Additional
-//Path: Adds a path with automatic pathfinding
+//Catanary: Adds a catanary line
 //----------------------------------
 
-//TODO nest them into the element
+class Catenary extends Element {
 
-//TODO finish writing the class from the python example
-
-/*class IntegerVector {
-
-    //Constructor
-
-    constructor(x,y){
-        this.x = x;
-        this.y = y;
-        if(x === undefined) this.x = 0;
-        if(y === undefined) this.y = 0;
+    //Constuctor
+    constructor(geometry, startPoint, endPoint) {
+        super(geometry);
     }
 
-    //Non-Chainable Methods
+    rebuild(cursorDocumentPosition) {
+        for (const GEOMETRY of this.geometry) GEOMETRY.rebuild(cursorDocumentPosition);
+        return this;
+    }
 
-    getValuesAsArray = () => [this.x, this.y];
+    render() {
+        const exp = (x) => Math.exp(x); 
+    
+        // Corrected cosh function
+        const cosh = (x) => (exp(x) + exp(-x)) * 0.5;
+    
+        const MAGNITUDE = 200; // Random value for the catenary, in pixels
+    
+        const START_POINT = new Vector(this.geometry[0].startPoint.x, this.geometry[0].startPoint.y);
+        const END_POINT = new Vector(this.geometry[0].endPoint.x, this.geometry[0].endPoint.y);
+    
+        const DISTANCE_VECTOR = new Vector(
+            END_POINT.x - START_POINT.x,
+            END_POINT.y - START_POINT.y
+        );
+    
+        // Correct the OFFSET_VECTOR calculation
+        const OFFSET_VECTOR = new Vector(
+            (START_POINT.x + END_POINT.x) * 0.5,
+            (START_POINT.y + END_POINT.y) * 0.5 - MAGNITUDE * cosh((DISTANCE_VECTOR.x * 0.5) / MAGNITUDE)
+        );
+    
+        // Correct the catenary function
+        const catenary = (x) => {
+            return MAGNITUDE * cosh((x - OFFSET_VECTOR.x) / MAGNITUDE) + OFFSET_VECTOR.y;
+        };
+    
+        noFill();
+        beginShape();
+    
+        for (let x = START_POINT.x; x <= END_POINT.x; x += 1) {
+            let y = catenary(x); // For an upside-down catenary, you can adjust this if needed
+            vertex(x, y);
+        }
+    
+        endShape();
+    }
 }
 
-class AStarCell {
-
-    //Constructor
-
-    constructor(index, parentIndex, startIndex, endIndex){
-        this.index = index;
-        this.parentIndex = parentIndex;
-        this.g = this.getIndexDistance(this.index, startIndex);
-        this.h = this.getIndexDistance(this.index, endIndex);
-        this.f = this.g + this.h;
-    }
-
-    //Non-Chainable Methods
-
-    getIndexDistance = (index, targetIndex) => Math.abs(index.x-targetIndex.x) + Math.abs(index.y-targetIndex.y);
-
-    isInCellList = (cellList) => {
-        for(cell of cellList) if(this.index.x == cell.index.x && this.index.y == cell.index.y) return true;
-        return false;
-    }
-
-    getParentCell = (cellList) => {
-        for(cell of cellList) if(this.parentIndex.x == cell.index.x && this.parentIndex.y == cell.index.y) return cell;
-        return null;
-    }
-
-    getAdjacentCells = (cells, startIndex, endIndex) => {
-        let adjacentCells = [];
-        for(let i=-1;i<2;i++){
-            for(let j=-1;j<2;j++){
-                if((i*j) != 0) continue;
-                const ADJACENT_INDEX = new IntegerVector(this.index.x+i, this.index.y+j);
-                if(ADJACENT_INDEX.x < 0 || ADJACENT_INDEX.y < 0) continue;
-                if(ADJACENT_INDEX.x >= cells.length || ADJACENT_INDEX.y >= cells[0].length) continue;
-                if(cells[ADJACENT_INDEX.x][ADJACENT_INDEX.y] === undefined) continue;
-                adjacentCells.push(new AStarCell(ADJACENT_INDEX, this.index, startIndex, endIndex));
-            }
+Commands.catenary = function (document) {
+    return new Command(
+        document, "catenary",
+        function () {
+            if (this.input.length < 2) return false;
+            return true;
+        },
+        function () { this.document.addElement(new Catenary([new Line(this.input[0], this.input[1])])); },
+        function () {
+            if (this.input.length != 1) return;
+            const l = new Line(this.input[0], this.currentMouseInput);
+            l.render();
         }
-    }
-
-    //TODO getClosedCells
-
-    //TODO getAStarIndices
-
-}*/
+    );
+}
